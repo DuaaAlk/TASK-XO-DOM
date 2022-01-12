@@ -1,19 +1,22 @@
 // ❗️ DON'T TOUCH THESE 2 FUNCTIONs
 // Pre-made function that will fill the button with its number.
 // First button top left is called 1, last button bottom right is 9
+
 function fillButton(index, text) {
   // This function fills the button of the send index
   document.getElementById(index).innerHTML = text;
 }
+
 // pre-made a function. You can use this function to present an alert to say someone wins
 function winningAlert(winner) {
   confirm(`Horraaay, ${winner} wins!`);
+  restartGame();
 }
 
 // SAMPLE CODE: This code fills the 1st and 9th button with X and O initially
 // ❗️ Delete this code once you are done testing
-fillButton(1, "X");
-fillButton(9, "O");
+// fillButton(1, "X");
+// fillButton(9, "O");
 
 /**
  *
@@ -22,9 +25,18 @@ fillButton(9, "O");
  * Add your code here, since this is going to be your main function
  * That interacts with the UI
  */
+
+let clickedButtons =  [];
+let currentPlayer = "O";
+
 function clickButton(index) {
   console.log(`Button number ${index} is clicked`);
-  // Your main code here.
+  // Your main code here.  
+  currentPlayer = checkPlayer(); // either X or O
+  fillButton(index,currentPlayer);
+  clickedButtons[index]= currentPlayer; 
+  checkWinner();
+
 }
 
 /**
@@ -36,6 +48,8 @@ function clickButton(index) {
 // In this function you should check if the player is X or O
 function checkPlayer() {
   // ....
+  (currentPlayer==="X") ? currentPlayer="O" : currentPlayer="X";
+  return currentPlayer;
 }
 
 /**
@@ -43,6 +57,33 @@ function checkPlayer() {
  * checkWinner should be a function that checks
  * who is winning and returns the winner
  */
-// function checkWinner
+function checkWinner(){
+  
+  if ( clickedButtons[1]===currentPlayer&&clickedButtons[5]===currentPlayer&&clickedButtons[9]===currentPlayer )
+    winningAlert(currentPlayer);
+  else if ( clickedButtons[1]===currentPlayer&&clickedButtons[4]===currentPlayer&&clickedButtons[7]===currentPlayer )
+    winningAlert(currentPlayer);
+    else if ( clickedButtons[2]===currentPlayer&&clickedButtons[5]===currentPlayer&&clickedButtons[8]===currentPlayer )
+      winningAlert(currentPlayer);
+      else if ( clickedButtons[3]===currentPlayer&&clickedButtons[5]===currentPlayer&&clickedButtons[7]===currentPlayer )
+        winningAlert(currentPlayer);
+        else if ( clickedButtons[1]===currentPlayer&&clickedButtons[2]===currentPlayer&&clickedButtons[3]===currentPlayer )
+          winningAlert(currentPlayer);
+          else if ( clickedButtons[4]===currentPlayer&&clickedButtons[5]===currentPlayer&&clickedButtons[6]===currentPlayer )
+            winningAlert(currentPlayer);
+            else if ( clickedButtons[7]===currentPlayer&&clickedButtons[8]===currentPlayer&&clickedButtons[9]===currentPlayer )
+              winningAlert(currentPlayer);
+                else if ( clickedButtons[3]===currentPlayer&&clickedButtons[6]===currentPlayer&&clickedButtons[9]===currentPlayer )
+                  winningAlert(currentPlayer);
 
-// function restartGame
+}
+
+function restartGame(){
+  clickedButtons = [];
+  currentPlayer = "O";
+  let i = 1;
+  while (i<10){
+    fillButton(i," ");
+    i++;
+  }
+}
