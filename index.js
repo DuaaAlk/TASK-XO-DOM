@@ -26,16 +26,23 @@ function winningAlert(winner) {
  * That interacts with the UI
  */
 
-let clickedButtons =  [];
+let clickedButtons =  ["","","","","","","","",""];
 let currentPlayer = "O";
+let blockClickedCounter = 0;
+
 
 function clickButton(index) {
+  
   console.log(`Button number ${index} is clicked`);
-  // Your main code here.  
+  // Your main code here.
   currentPlayer = checkPlayer(); // either X or O
   fillButton(index,currentPlayer);
   clickedButtons[index]= currentPlayer; 
-  checkWinner();
+  blockClickedCounter++;
+  checkWinner(); 
+
+  if (blockClickedCounter==9) 
+    restartGame();
 
 }
 
@@ -74,16 +81,18 @@ function checkWinner(){
             else if ( clickedButtons[7]===currentPlayer&&clickedButtons[8]===currentPlayer&&clickedButtons[9]===currentPlayer )
               winningAlert(currentPlayer);
                 else if ( clickedButtons[3]===currentPlayer&&clickedButtons[6]===currentPlayer&&clickedButtons[9]===currentPlayer )
-                  winningAlert(currentPlayer);
+                  winningAlert(currentPlayer)
 
 }
 
 function restartGame(){
   clickedButtons = [];
   currentPlayer = "O";
+  blockClickedCounter = 0;
   let i = 1;
   while (i<10){
     fillButton(i," ");
     i++;
   }
+  
 }
